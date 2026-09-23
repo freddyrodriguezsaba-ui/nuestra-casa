@@ -1,0 +1,451 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#14213d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Nuestra Casa"><title>Nuestra Casa V12</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--ink:#14213d;--ink2:#20345c;--mint:#38c58b;--mint2:#eaf9f3;--bg:#f4f7fb;--card:#fff;--muted:#778197;--line:#e7ebf2;--red:#e35d6a;--amber:#f2a93b;--shadow:0 14px 40px rgba(20,33,61,.07);--radius:24px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html{background:var(--bg)}body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}button,input,select{font:inherit}.hidden{display:none!important}button{cursor:pointer}.muted{color:var(--muted);font-size:13px}.login{min-height:100dvh;display:grid;place-items:center;padding:24px}.login .card{width:min(430px,100%)}#app{min-height:100vh}.wrap{max-width:1220px;margin:auto;padding:22px 18px 112px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.brand{display:flex;align-items:center;gap:12px}.logo{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,#36ca91,#28a876);display:grid;place-items:center;color:white;font-weight:900;box-shadow:0 9px 22px rgba(56,197,139,.24)}.brand h2{margin:0;font-size:19px;letter-spacing:-.02em}.eyebrow{font-size:12px;color:var(--muted)}.avatarbtn{border:0;background:#fff;border-radius:14px;padding:10px 13px;color:var(--ink);font-weight:750;box-shadow:0 5px 18px rgba(20,33,61,.06)}.view{display:none}.view.active{display:block}.pagehead{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:10px 0 18px}.pagehead h1,.pagehead h2{margin:0;font-size:30px;letter-spacing:-.04em}.pagehead p{margin:6px 0 0;color:var(--muted)}.monthpick{width:170px}.input,.select{width:100%;min-height:48px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--ink);font-size:16px;outline:none}.input:focus,.select:focus{border-color:var(--mint);box-shadow:0 0 0 4px rgba(56,197,139,.12)}.field{margin:14px 0}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px}.card{background:var(--card);border:1px solid rgba(231,235,242,.9);border-radius:var(--radius);padding:20px;margin:14px 0;box-shadow:var(--shadow)}.card h3{margin:0 0 14px;font-size:17px}.hero{background:linear-gradient(135deg,#14213d 0%,#20385f 100%);color:white;border:0;padding:25px;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:210px;height:210px;border-radius:50%;background:rgba(56,197,139,.13);right:-65px;top:-95px}.hero .label{color:#b9c6da;font-size:13px}.hero .big{font-size:44px;font-weight:850;letter-spacing:-.055em;margin:4px 0 20px}.heroStats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;position:relative;z-index:1}.heroStat{padding:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:16px}.heroStat small{display:block;color:#aebcd0;margin-bottom:5px}.heroStat b{font-size:16px}.progressrow{margin-top:18px;position:relative;z-index:1}.track{height:8px;background:#edf1f5;border-radius:99px;overflow:hidden}.hero .track{background:rgba(255,255,255,.13)}.track i{display:block;height:100%;background:var(--mint);border-radius:99px}.track i.danger{background:var(--red)}.progresslabel{display:flex;justify-content:space-between;font-size:12px;color:#b9c6da;margin-top:7px}.dashgrid{display:grid;grid-template-columns:1.08fr .92fr;gap:14px}.sectiontitle{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.sectiontitle h3{margin:0}.linkbtn{border:0;background:transparent;color:#21845e;font-weight:800}.attention{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.attention:last-child{border-bottom:0}.att-icon{width:36px;height:36px;border-radius:12px;background:var(--mint2);display:grid;place-items:center;color:#21845e;font-weight:900}.attention.amber .att-icon{background:#fff5df;color:#a76b00}.attention.red .att-icon{background:#ffedef;color:#ba3f4b}.attention b,.attention small,.allgood b,.allgood small,.uprow small{display:block}.attention small,.allgood small,.uprow small{color:var(--muted);margin-top:3px}.attention button{border:0;background:#f2f6f4;color:#21845e;border-radius:10px;padding:8px 10px;font-weight:800}.allgood{display:flex;gap:12px;align-items:center;padding:8px 0}.allgood>span{width:38px;height:38px;border-radius:13px;background:var(--mint2);display:grid;place-items:center;color:#21845e;font-weight:900}.catline{padding:9px 0}.cathead{display:flex;justify-content:space-between;gap:12px;font-size:13px;margin-bottom:7px}.cathead span{color:var(--muted)}.uprow{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.uprow:last-child{border:0}.datepill{width:42px;height:45px;border-radius:13px;background:#f3f6fa;display:grid;place-items:center;line-height:1}.datepill b{font-size:16px}.datepill small{font-size:9px;margin:0}.uprow strong{font-size:14px}.green{color:#21845e}.quickgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.quick{border:1px solid var(--line);background:#fff;border-radius:18px;padding:17px;text-align:left;color:var(--ink);font-weight:850;box-shadow:0 6px 18px rgba(20,33,61,.04)}.quick span{display:block;font-size:22px;margin-bottom:8px}.quick small{display:block;color:var(--muted);font-weight:500;margin-top:4px}.btn{min-height:46px;border:0;border-radius:13px;padding:12px 15px;font-weight:850}.primary{background:var(--mint);color:white}.soft{background:var(--mint2);color:#21845e}.full{width:100%}.flex{display:flex;justify-content:space-between;align-items:center;gap:10px}.row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.row:last-child{border:0}.progress{height:8px;background:#edf1f5;border-radius:99px;overflow:hidden;margin-top:8px}.bar{height:100%;background:var(--mint);border-radius:99px}.bar.over{background:var(--red)}.badge{font-size:12px;font-weight:800;padding:5px 9px;border-radius:999px}.pending{background:#fff4dd;color:#9b680b}.paid{background:var(--mint2);color:#21845e}.file{display:inline-flex;align-items:center;justify-content:center;min-height:44px;background:#eef4ff;color:#315f9c;padding:10px 12px;border-radius:11px;font-size:13px;font-weight:800}.file input{display:none}.edit-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;margin-top:9px}.edit-panel{background:#f7faf9;border:1px solid #dcebe4;border-radius:16px;padding:15px;margin:12px 0}.empty{color:var(--muted);font-size:13px;padding:10px 0}.planhero{padding:22px;background:linear-gradient(135deg,#eaf9f3,#f7fbff)}.planCards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.planCard{background:white;border:1px solid var(--line);border-radius:20px;padding:20px;text-align:left;color:var(--ink);box-shadow:var(--shadow)}.planCard .ico{font-size:26px}.planCard h3{margin:12px 0 5px}.planCard p{color:var(--muted);font-size:13px;margin:0 0 14px}.nav{position:fixed;z-index:50;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:20px;padding:7px;box-shadow:0 18px 50px rgba(20,33,61,.16);backdrop-filter:blur(20px)}.nav button{border:0;background:transparent;color:var(--muted);border-radius:14px;padding:9px 4px;font-size:11px;min-height:48px}.nav button span{display:block;font-size:18px;margin-bottom:3px}.nav button.active{background:var(--mint2);color:#21845e;font-weight:850}.legacyDash{display:none}
+@media(max-width:760px){.wrap{padding:16px 14px 108px}.topbar{margin-bottom:17px}.pagehead{align-items:flex-start;flex-direction:column}.pagehead h1,.pagehead h2{font-size:27px}.monthpick{width:100%}.hero{padding:20px}.hero .big{font-size:39px}.heroStats{grid-template-columns:1fr 1fr}.heroStat:last-child{grid-column:1/-1}.dashgrid,.planCards{grid-template-columns:1fr}.quickgrid{grid-template-columns:repeat(3,1fr)}.quick{padding:13px 9px;font-size:12px}.quick small{display:none}.card{padding:17px;border-radius:20px}.row:has(.edit-actions){flex-direction:column}.edit-actions{justify-content:flex-start}}
+@media(min-width:820px){#app{display:grid;grid-template-columns:220px 1fr;max-width:1480px;margin:auto}.wrap{grid-column:2;padding:34px 40px 60px}.nav{grid-column:1;grid-row:1;position:sticky;top:0;left:auto;right:auto;bottom:auto;height:100vh;border-radius:0;border-top:0;border-bottom:0;border-left:0;display:flex;flex-direction:column;padding:28px 14px;background:white;box-shadow:none}.nav:before{content:"Nuestra Casa";font-size:19px;font-weight:900;padding:12px 12px 24px;margin-bottom:10px;border-bottom:1px solid var(--line)}.nav button{text-align:left;font-size:14px;padding:12px 14px}.nav button span{display:inline;margin-right:10px;font-size:16px}.hero .big{font-size:50px}.topbar .brand{display:none}}
+
+/* V11.1 Mobile-first polish */
+@media(max-width:760px){
+  body{overscroll-behavior-y:none}
+  .wrap{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+  .topbar{position:sticky;top:0;z-index:30;background:rgba(247,249,252,.92);backdrop-filter:blur(16px);padding:8px 0;margin-top:-8px}
+  .logo{width:42px;height:42px;border-radius:14px}.avatarbtn{min-height:44px}
+  .hero{border-radius:22px}.hero .big{font-size:clamp(34px,10vw,42px);overflow-wrap:anywhere}
+  .heroStats{gap:8px}.heroStat{padding:11px}.heroStat b{font-size:15px}
+  .quickgrid{grid-template-columns:1fr 1fr 1fr;gap:8px}.quick{min-height:72px;padding:12px 8px;text-align:center}.quick span{font-size:20px;margin-bottom:5px}
+  .row{gap:9px}.row>div:first-child{min-width:0}.row b,.row small{overflow-wrap:anywhere}
+  .edit-actions{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.edit-actions .btn,.edit-actions button{width:100%;min-height:44px}
+  .attention{grid-template-columns:38px minmax(0,1fr) auto}.attention button{min-height:40px}
+  .uprow{grid-template-columns:44px minmax(0,1fr) auto}.uprow strong{overflow-wrap:anywhere}
+  .planCard{min-height:132px}.planCards{gap:10px}
+  .field{margin:12px 0}.input,.select,.btn{min-height:48px}
+  input[type=date],input[type=month]{min-height:48px}
+  .nav{left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));bottom:calc(6px + env(safe-area-inset-bottom));padding:6px;border-radius:22px}
+  .nav button{min-height:54px;padding:7px 2px;font-size:10.5px;touch-action:manipulation}
+  .nav button span{font-size:19px}
+}
+@media(max-width:390px){.brand h2{font-size:17px}.eyebrow{font-size:11px}.heroStats{grid-template-columns:1fr 1fr}.quickgrid{gap:6px}.quick{font-size:11px}.card{padding:15px}.nav button{font-size:9.5px}}
+@media(max-height:520px) and (orientation:landscape){.nav{position:static;margin:10px 12px}.wrap{padding-bottom:20px}}
+
+/* V11.4 responsive desktop/tablet refinement */
+@media(min-width:820px){
+  .wrap{width:100%;max-width:1260px;margin:0;padding:30px 36px 60px}
+  .topbar{min-height:48px;margin-bottom:26px}
+  .avatarbtn{margin-left:auto}
+  #mov .pagehead,#pres .pagehead,#plan .pagehead,#hist .pagehead,#fijos .pagehead,#ingresos .pagehead,#ahorros .pagehead,#seguridad .pagehead{margin-top:0}
+  #mov>.card{max-width:none!important;width:100%}
+  #mov>.card{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px;align-items:start}
+  #mov>.card .field{margin:8px 0}
+  #mov>.card .field:nth-of-type(5),#mov>.card .field:nth-of-type(6),#mov>.card #txSaveButton,#mov>.card #txCancelEdit,#mov>.card #txMsg{grid-column:1/-1}
+  #pres>.card{padding:22px}
+  #budgetList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px}
+  #budgetList>.row{min-width:0}
+}
+@media(min-width:1180px){
+  #budgetList{grid-template-columns:repeat(3,minmax(0,1fr));gap:0 26px}
+}
+@media(min-width:820px) and (max-width:1100px){
+  #app{grid-template-columns:190px minmax(0,1fr)}
+  .nav{padding-left:10px;padding-right:10px}
+  .nav button{padding-left:10px;padding-right:10px}
+  .wrap{padding-left:26px;padding-right:26px}
+}
+/* V11.3 MFA */
+.mfa-box{width:min(460px,100%)}.mfa-qr{display:block;width:min(240px,72vw);height:auto;margin:16px auto;border-radius:16px;background:#fff;padding:10px;border:1px solid var(--line)}.code6{text-align:center;font-size:24px!important;letter-spacing:.28em;font-weight:850}.security-status{padding:12px 14px;border-radius:14px;background:var(--mint2);color:#21845e;font-weight:750;margin:12px 0}.security-note{padding:12px 14px;border-radius:14px;background:#fff5df;color:#805700;font-size:13px;margin:12px 0}.secret{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all;background:#f3f6fa;padding:10px;border-radius:10px;font-size:12px}
+
+/* V12 — polished finance UI */
+:root{--blue:#1267d6;--blueSoft:#edf5ff;--danger:#d92d20;--dangerSoft:#fff0ef;--success:#14955a;--successSoft:#eaf8f1}
+.card{border-radius:20px;box-shadow:0 8px 26px rgba(20,33,61,.055)}
+.action-primary,.action-edit,.action-danger,.action-neutral{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border:0;border-radius:12px;padding:10px 16px;font-weight:850;white-space:nowrap}
+.action-primary{background:var(--success);color:#fff}.action-primary:hover{filter:brightness(.97)}
+.action-edit{background:var(--blueSoft);color:var(--blue)}.action-danger{background:var(--dangerSoft);color:var(--danger)}.action-neutral{background:#f2f5f9;color:var(--ink)}
+.item-card{border:1px solid var(--line);border-radius:18px;padding:18px;margin:12px 0;background:#fff;box-shadow:0 5px 16px rgba(20,33,61,.035)}
+.item-top{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:start}.item-title{font-size:18px;font-weight:900}.item-sub{color:var(--muted);margin-top:4px}.item-money{text-align:right;font-size:20px;font-weight:900}.item-actions{display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}.item-actions .action-primary{min-width:170px}.item-actions .action-edit,.item-actions .action-danger{min-width:105px}
+.compact-form{display:grid;grid-template-columns:1.3fr .8fr .65fr auto;gap:12px;align-items:end}.compact-form .field{margin:0}.compact-form .btn{min-width:150px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(16,29,52,.52);backdrop-filter:blur(5px);z-index:500;display:grid;place-items:center;padding:18px}.modal-shell{width:min(560px,100%);max-height:min(86vh,760px);overflow:auto;background:#fff;border-radius:22px;box-shadow:0 28px 90px rgba(0,0,0,.24);padding:24px}.modal-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:18px}.modal-head h3{font-size:22px;margin:0;letter-spacing:-.025em}.modal-head p{margin:5px 0 0;color:var(--muted);font-size:14px}.modal-x{border:0;background:transparent;font-size:24px;color:var(--muted);padding:0 4px}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}.modal-note{background:#eef6ff;color:#315f9c;border-radius:13px;padding:12px 14px;font-size:13px;margin-top:14px}.toast{position:fixed;right:22px;bottom:22px;z-index:700;background:#14213d;color:#fff;border-radius:13px;padding:13px 16px;box-shadow:0 14px 40px rgba(20,33,61,.24);max-width:min(420px,calc(100vw - 28px));font-weight:700}.toast.error{background:#a82d37}
+@media(max-width:760px){.compact-form{grid-template-columns:1fr}.item-top{grid-template-columns:1fr}.item-money{text-align:left}.item-actions{justify-content:stretch}.item-actions>*{flex:1}.item-actions .action-primary{flex-basis:100%}.modal-backdrop{align-items:end;padding:0}.modal-shell{width:100%;max-height:92vh;border-radius:24px 24px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom))}.modal-actions>*{flex:1}}
+
+/* V12.1 complete desktop navigation */
+@media(min-width:820px){
+  .nav .desktop-only{display:block}
+  .nav .mobile-plan{display:none}
+  .nav .nav-divider{display:block;height:1px;background:var(--line);margin:10px 8px}
+  .nav .household-foot{display:block;margin-top:auto;padding:14px 12px 4px;border-top:1px solid var(--line);color:var(--ink)}
+  .nav .household-foot b{display:block;font-size:13px;margin-bottom:3px}
+  .nav .household-foot small{display:block;color:var(--muted);font-size:12px}
+}
+@media(max-width:819px){
+  .nav .desktop-only,.nav .nav-divider,.nav .household-foot{display:none!important}
+  .nav .mobile-plan{display:block}
+}
+
+/* V12.2 compact finance rows */
+.item-card{padding:14px 16px;margin:8px 0;border-radius:16px;box-shadow:0 3px 12px rgba(20,33,61,.025)}
+.item-top{gap:14px;align-items:center}.item-title{font-size:16px}.item-sub{font-size:13px;margin-top:3px}.item-money{font-size:18px}
+.item-actions{margin-top:9px;gap:7px;align-items:center}.item-actions .action-primary{min-width:0}.item-actions .action-edit,.item-actions .action-danger{min-width:0}
+.item-actions button,.item-actions .file{min-height:38px;padding:8px 12px;border-radius:10px;font-size:13px}
+.action-edit.compact-edit{background:transparent;padding-left:10px;padding-right:10px}.action-edit.compact-edit:hover{background:var(--blueSoft)}
+.more-menu{position:relative}.more-menu summary{list-style:none;cursor:pointer;width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--muted);font-size:20px;font-weight:800}.more-menu summary::-webkit-details-marker{display:none}.more-pop{position:absolute;right:0;top:44px;z-index:20;min-width:145px;padding:6px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px rgba(20,33,61,.15)}.more-pop button{width:100%;border:0;background:transparent;color:var(--danger);text-align:left;font-weight:800;padding:9px 10px;border-radius:8px}.more-pop button:hover{background:var(--dangerSoft)}
+.receipt-compact{background:#f5f7fb;color:#456080}
+@media(max-width:760px){.item-card{padding:14px}.item-top{grid-template-columns:1fr auto}.item-money{text-align:right}.item-actions{justify-content:flex-end}.item-actions>*{flex:0 0 auto!important}.item-actions .action-primary{flex-basis:auto!important}.item-sub{max-width:210px}.more-pop{right:0}}
+</style>
+</head><body>
+<div id="login" class="login"><div class="card"><div class="brand"><div class="logo">NC</div><div><h2>Nuestra Casa</h2><div class="eyebrow">Tu hogar financiero, en un solo lugar</div></div></div><div class="field"><label>Email</label><input id="email" class="input" type="email" autocomplete="email"></div><div class="field"><label>Contraseña</label><input id="password" class="input" type="password" autocomplete="current-password"></div><button class="btn primary full" onclick="signIn()">Entrar</button><button class="btn soft full" style="margin-top:10px" onclick="requestPasswordReset()">¿Olvidaste tu contraseña?</button><div id="loginMsg" class="muted" style="margin-top:10px"></div></div></div>
+<div id="resetPassword" class="login hidden"><div class="card"><div class="brand"><div class="logo">NC</div><div><h2>Nueva contraseña</h2><div class="eyebrow">Protege el acceso a Nuestra Casa</div></div></div><div class="field"><label>Nueva contraseña</label><input id="newPassword" class="input" type="password" autocomplete="new-password" minlength="8" placeholder="Mínimo 8 caracteres"></div><div class="field"><label>Confirmar contraseña</label><input id="confirmPassword" class="input" type="password" autocomplete="new-password" minlength="8" placeholder="Repite la contraseña"></div><button class="btn primary full" onclick="saveNewPassword()">Guardar nueva contraseña</button><div id="resetMsg" class="muted" style="margin-top:10px"></div></div></div>
+<div id="mfaChallenge" class="login hidden"><div class="card mfa-box"><div class="brand"><div class="logo">NC</div><div><h2>Verificación en 2 pasos</h2><div class="eyebrow">Microsoft Authenticator</div></div></div><p class="muted" style="margin-top:18px">Abre Microsoft Authenticator e introduce el código de 6 dígitos.</p><div class="field"><label>Código</label><input id="mfaLoginCode" class="input code6" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></div><button class="btn primary full" onclick="verifyMfaLogin()">Verificar y entrar</button><button class="btn soft full" style="margin-top:9px" onclick="signOut()">Cancelar</button><div id="mfaLoginMsg" class="muted" style="margin-top:10px"></div></div></div>
+<div id="app" class="hidden"><main class="wrap"><header class="topbar"><div class="brand"><div class="logo">NC</div><div><h2>Nuestra Casa</h2><div id="homeName" class="eyebrow"></div></div></div><button class="avatarbtn" onclick="signOut()">Salir</button></header>
+<section id="inicio" class="view active"><div class="pagehead"><div><div class="eyebrow">FINANZAS DEL HOGAR</div><h1>Así va tu mes</h1><p>Lo importante, sin ruido.</p></div><input id="month" class="input monthpick" type="month" onchange="refreshAll()"></div>
+<div class="card hero"><div class="label">Disponible ahora</div><div id="heroAvailable" class="big">$0</div><div class="heroStats"><div class="heroStat"><small>Ingresos recibidos</small><b id="heroIncome">$0</b></div><div class="heroStat"><small>Gastado</small><b id="heroSpent">$0</b></div><div class="heroStat"><small>Proyección del mes</small><b id="heroProjected">$0</b></div></div><div class="progressrow"><div class="track"><i id="monthProgress" style="width:0%"></i></div><div class="progresslabel"><span id="monthProgressLabel">0% del presupuesto usado</span><span>100%</span></div></div></div>
+<div class="quickgrid"><button class="quick" onclick="openView('mov')"><span>＋</span>Movimiento<small>Registra un gasto o ingreso</small></button><button class="quick" onclick="openView('fijos')"><span>✓</span>Pagar fijo<small>Revisa pagos del mes</small></button><button class="quick" onclick="openView('ahorros')"><span>◎</span>Ahorrar<small>Avanza tus metas</small></button></div>
+<div class="dashgrid"><div class="card"><div class="sectiontitle"><h3>Necesita atención</h3></div><div id="attentionList"></div></div><div class="card"><div class="sectiontitle"><h3>Próximos</h3><button class="linkbtn" onclick="openPlan()">Ver plan</button></div><div id="upcomingList"></div></div></div>
+<div class="card"><div class="sectiontitle"><h3>En qué estamos gastando</h3><button class="linkbtn" onclick="openView('pres')">Presupuesto</button></div><div id="topCategories"></div></div>
+<div class="legacyDash"><b id="kIncome"></b><b id="kFixedTotal"></b><span id="kFixedTrend"></span><b id="kVariableTotal"></b><span id="kVariableTrend"></span><b id="kTotalExpense"></b><b id="kAvail"></b><b id="kFixedPaid"></b><b id="kPending"></b><b id="kVariableVsBudget"></b><span id="kVariableBudgetPct"></span><b id="kExpectedIncome"></b><span id="kIncomePending"></span><b id="kMonthSaving"></b><b id="kAccumSavings"></b><div id="summaryCats"></div></div></section>
+<section id="mov" class="view"><div class="pagehead"><div><h2 id="movementHeading">Nuevo movimiento</h2><p>Registra lo que entró o salió.</p></div></div><div class="card" style="max-width:680px"><div class="field"><label>Tipo</label><select id="txType" class="select" onchange="fillTxCats()"><option value="expense">Gasto</option><option value="income">Ingreso</option></select></div><div class="field"><label>Monto</label><input id="txAmount" class="input" type="number" step="0.01" inputmode="decimal"></div><div class="field"><label>Categoría</label><select id="txCat" class="select"></select></div><div class="field"><label>Fecha</label><input id="txDate" class="input" type="date"></div><div class="field"><label>Nota</label><input id="txNote" class="input" placeholder="Ej. Supermercado"></div><div class="field"><label>Recibo</label><label class="file">📷 Tomar foto<input id="txReceipt" type="file" accept="image/*" capture="environment"></label><div id="receiptState" class="muted">Sin foto</div></div><button class="btn primary full" id="txSaveButton" onclick="saveTx()">Guardar movimiento</button><button class="btn soft full hidden" id="txCancelEdit" onclick="cancelTxEdit()" style="margin-top:8px">Cancelar edición</button><div id="txMsg" class="muted" style="margin-top:8px"></div></div></section>
+<section id="pres" class="view"><div class="pagehead"><div><h2>Presupuesto</h2><p>Define cuánto quieres gastar por categoría.</p></div></div><div class="card"><div id="budgetList"></div><button class="btn primary full" onclick="saveBudgets()">Guardar presupuesto</button><div id="budgetMsg" class="muted"></div></div></section>
+<section id="plan" class="view"><div class="pagehead"><div><h2>Plan financiero</h2><p>Lo que se repite, lo que quieres lograr y lo que viene.</p></div></div><div class="card planhero"><h3>Organiza una vez. Sigue el mes sin esfuerzo.</h3><div class="muted">Tus ingresos recurrentes, gastos fijos y metas trabajan juntos en el resumen.</div></div><div class="planCards"><button class="planCard" onclick="openView('fijos')"><div class="ico">⌂</div><h3>Gastos fijos</h3><p>Servicios, colegio, seguros y compromisos mensuales.</p><b>Administrar →</b></button><button class="planCard" onclick="openView('ingresos')"><div class="ico">↘</div><h3>Ingresos recurrentes</h3><p>Salarios y otros ingresos esperados del hogar.</p><b>Administrar →</b></button><button class="planCard" onclick="openView('ahorros')"><div class="ico">◎</div><h3>Ahorros y metas</h3><p>Fondo de emergencia, viajes y objetivos familiares.</p><b>Administrar →</b></button><button class="planCard" onclick="openView('seguridad');loadMfaStatus()"><div class="ico">🔐</div><h3>Seguridad</h3><p>Protege tu cuenta con Microsoft Authenticator.</p><b>Configurar →</b></button></div></section>
+<section id="fijos" class="view"><div class="pagehead"><div><h2>Gastos fijos</h2><p>Compromisos mensuales del hogar.</p></div><button class="linkbtn" onclick="openPlan()">← Plan</button></div><div class="card"><div class="flex"><div><div class="muted">Total mensual</div><div id="fixedSectionTotal" style="font-size:30px;font-weight:850">$0</div></div><div id="fixedSectionTrend" class="muted"></div></div></div><div class="card"><h3>Agregar gasto fijo</h3><div class="compact-form"><div class="field"><label>Nombre</label><input id="fxName" class="input" placeholder="Ej. Préstamo de la casa"></div><div class="field"><label>Categoría</label><select id="fxCat" class="select"></select></div><div class="field"><label>Monto</label><input id="fxAmount" class="input" type="number" step="0.01"></div><div class="field"><label>Día</label><input id="fxDay" class="input" type="number" min="1" max="31" value="1"></div><button class="btn primary" onclick="addFixed()">+ Agregar</button></div><div id="fxMsg" class="muted"></div></div><div id="fixedEditPanel" class="edit-panel hidden"></div><div class="card"><div id="fixedList"></div></div></section>
+<section id="ingresos" class="view"><div class="pagehead"><div><h2>Ingresos recurrentes</h2><p>Lo que esperas recibir cada mes.</p></div><button class="linkbtn" onclick="openPlan()">← Plan</button></div><div class="card"><div class="flex"><div><div class="muted">Ingreso esperado</div><div id="incomeSectionTotal" style="font-size:30px;font-weight:850">$0</div></div><div id="incomeSectionPending" class="muted"></div></div></div><div class="card"><h3>Agregar ingreso recurrente</h3><div class="compact-form" style="grid-template-columns:1.35fr .8fr .65fr auto"><div class="field"><label>Nombre</label><input id="incName" class="input" placeholder="Ej. Salario"></div><div class="field"><label>Monto</label><input id="incAmount" class="input" type="number" step="0.01"></div><div class="field"><label>Día esperado</label><input id="incDay" class="input" type="number" min="1" max="31" value="15"></div><button class="btn primary" onclick="addRecurringIncome()">+ Agregar ingreso</button></div><div id="incMsg" class="muted"></div></div><div id="incomeEditPanel" class="edit-panel hidden"></div><div class="card"><div id="incomeList"></div></div></section>
+<section id="ahorros" class="view"><div class="pagehead"><div><h2>Ahorros y metas</h2><p>Convierte objetivos en progreso visible.</p></div><button class="linkbtn" onclick="openPlan()">← Plan</button></div><div class="card"><div class="flex"><div><div class="muted">Ahorro acumulado</div><div id="savingsSectionTotal" style="font-size:30px;font-weight:850">$0</div></div><button class="btn primary" onclick="addSavingsGoal()">+ Nueva meta</button></div></div><div id="savingsEditPanel" class="edit-panel hidden"></div><div class="card"><div id="savingsList"></div></div></section>
+<section id="seguridad" class="view"><div class="pagehead"><div><h2>Seguridad</h2><p>Verificación en 2 pasos para tu cuenta.</p></div><button class="linkbtn" onclick="openPlan()">← Plan</button></div><div class="card"><h3>Microsoft Authenticator</h3><div id="mfaStatus" class="security-status">Comprobando estado...</div><p class="muted">Esta configuración es individual. Activarla en tu usuario no obliga a Carol a usar 2-Step.</p><button id="mfaEnrollBtn" class="btn primary full" onclick="beginMfaEnrollment()">Activar verificación en 2 pasos</button></div><div id="mfaEnrollPanel" class="card hidden"><h3>Configurar Authenticator</h3><p class="muted">1. Abre Microsoft Authenticator → agrega una cuenta → Otra cuenta. 2. Escanea este QR. 3. Escribe abajo el código de 6 dígitos.</p><img id="mfaQr" class="mfa-qr" alt="Código QR para Microsoft Authenticator"><div class="muted">Si no puedes escanear el QR, usa esta clave:</div><div id="mfaSecret" class="secret"></div><div class="field"><label>Código de 6 dígitos</label><input id="mfaEnrollCode" class="input code6" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></div><button class="btn primary full" onclick="confirmMfaEnrollment()">Confirmar y activar</button><button class="btn soft full" style="margin-top:9px" onclick="cancelMfaEnrollment()">Cancelar</button><div id="mfaEnrollMsg" class="muted" style="margin-top:10px"></div></div></section>
+<section id="hist" class="view"><div class="pagehead"><div><h2>Movimientos</h2><p>Busca, revisa y corrige tu historial.</p></div></div><div class="card"><input id="search" class="input" placeholder="Buscar movimiento..." oninput="renderHistory()"><div id="history"></div></div></section>
+</main><nav class="nav">
+<button class="active" data-view="inicio" onclick="go('inicio',this)"><span>⌂</span>Inicio</button>
+<button data-view="mov" onclick="go('mov',this)"><span>＋</span>Movimiento</button>
+<button data-view="pres" onclick="go('pres',this)"><span>◫</span>Presupuesto</button>
+<button class="desktop-only" data-view="fijos" onclick="go('fijos',this)"><span>⌂</span>Gastos fijos</button>
+<button class="desktop-only" data-view="ingresos" onclick="go('ingresos',this)"><span>↘</span>Ingresos</button>
+<button class="desktop-only" data-view="ahorros" onclick="go('ahorros',this)"><span>◎</span>Ahorros</button>
+<button class="mobile-plan" data-view="plan" onclick="go('plan',this)"><span>◎</span>Plan</button>
+<button data-view="hist" onclick="go('hist',this)"><span>≡</span>Historial</button>
+<div class="nav-divider desktop-only"></div>
+<button class="desktop-only" data-view="seguridad" onclick="go('seguridad',this);loadMfaStatus()"><span>🔐</span>Seguridad</button>
+<div class="household-foot desktop-only"><b>⌂ Hogar</b><small>Freddy &amp; Carol</small></div>
+</nav></div>
+<div id="uiModal" class="modal-backdrop hidden"><div class="modal-shell"><div class="modal-head"><div><h3 id="uiModalTitle"></h3><p id="uiModalSubtitle"></p></div><button class="modal-x" onclick="modalCancel()" aria-label="Cerrar">×</button></div><div id="uiModalBody"></div><div class="modal-actions"><button class="action-neutral" onclick="modalCancel()">Cancelar</button><button id="uiModalOk" class="action-primary">Guardar</button></div></div></div><div id="toast" class="toast hidden"></div><script>
+const db=supabase.createClient('https://nqyruyrwdfenttisrdis.supabase.co','sb_publishable_Zxe2OAz_O0uMo4oDd6c2Tw_j2ZxYDKg');
+let modalResolver=null;
+function toastMsg(msg,isError=false){toast.textContent=msg;toast.className='toast'+(isError?' error':'');clearTimeout(toastMsg.t);toastMsg.t=setTimeout(()=>toast.classList.add('hidden'),3200)}
+function modalCancel(){uiModal.classList.add('hidden');if(modalResolver){modalResolver(null);modalResolver=null}}
+function showFormModal({title,subtitle='',fields=[],ok='Guardar',note=''}){uiModalTitle.textContent=title;uiModalSubtitle.textContent=subtitle;uiModalOk.textContent=ok;uiModalBody.innerHTML=fields.map((f,i)=>`<div class="field"><label>${f.label}</label><input id="modalField${i}" class="input" type="${f.type||'text'}" ${f.step?`step="${f.step}"`:''} ${f.min!==undefined?`min="${f.min}"`:''} ${f.max!==undefined?`max="${f.max}"`:''} value="${String(f.value??'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')}"></div>`).join('')+(note?`<div class="modal-note">${note}</div>`:'');uiModal.classList.remove('hidden');setTimeout(()=>document.getElementById('modalField0')?.focus(),50);return new Promise(resolve=>{modalResolver=resolve;uiModalOk.onclick=()=>{const vals=fields.map((_,i)=>document.getElementById('modalField'+i).value);uiModal.classList.add('hidden');modalResolver=null;resolve(vals)}})}
+function askConfirm(title,message,ok='Confirmar',danger=false){uiModalTitle.textContent=title;uiModalSubtitle.textContent='';uiModalBody.innerHTML=`<div style="font-size:15px;line-height:1.55;color:var(--ink2)">${message}</div>`;uiModalOk.textContent=ok;uiModalOk.className=danger?'action-danger':'action-primary';uiModal.classList.remove('hidden');return new Promise(resolve=>{modalResolver=resolve;uiModalOk.onclick=()=>{uiModal.classList.add('hidden');uiModalOk.className='action-primary';modalResolver=null;resolve(true)}})}
+let editingTransactionId=null,editingFixedId=null,editingIncomeId=null,editingGoalId=null;let householdId,userId,cats=[],txs=[],prevTxs=[],fixed=[],payments=[],budgets={},fixedSnapshots=[],recurringIncomes=[],incomeReceipts=[],savingsGoals=[],savingsContribs=[];const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(+n||0);const monthStart=()=>document.getElementById('month').value+'-01';function bounds(){let [y,m]=document.getElementById('month').value.split('-').map(Number);let n=new Date(y,m,1);return [monthStart(),`${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-01`]}
+function previousMonthStart(){let [y,m]=document.getElementById('month').value.split('-').map(Number);let d=new Date(y,m-2,1);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-01`}
+function previousMonthBounds(){let [y,m]=document.getElementById('month').value.split('-').map(Number);let s=new Date(y,m-2,1),e=new Date(y,m-1,1);return [`${s.getFullYear()}-${String(s.getMonth()+1).padStart(2,'0')}-01`,`${e.getFullYear()}-${String(e.getMonth()+1).padStart(2,'0')}-01`]}
+function go(id,b){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
+async function signIn(){let {data,error}=await db.auth.signInWithPassword({email:email.value,password:password.value});loginMsg.textContent=error?'Error: '+error.message:'Entrando...';if(!error)await routeAuthenticatedSession(data.session)}
+async function requestPasswordReset(){const mail=email.value.trim();if(!mail){loginMsg.textContent='Escribe tu email primero.';email.focus();return}loginMsg.textContent='Enviando enlace seguro...';const redirectTo=location.origin+location.pathname;const {error}=await db.auth.resetPasswordForEmail(mail,{redirectTo});loginMsg.textContent=error?'Error: '+error.message:'Si existe una cuenta con ese email, recibirás un enlace para crear una nueva contraseña.'}
+async function saveNewPassword(){const a=newPassword.value,b=confirmPassword.value;if(a.length<8){resetMsg.textContent='Usa al menos 8 caracteres.';return}if(a!==b){resetMsg.textContent='Las contraseñas no coinciden.';return}resetMsg.textContent='Actualizando...';const {error}=await db.auth.updateUser({password:a});if(error){resetMsg.textContent='Error: '+error.message;return}resetMsg.textContent='Contraseña actualizada. Entrando...';setTimeout(()=>location.href=location.origin+location.pathname,900)}
+async function signOut(){await db.auth.signOut();location.reload()}
+async function routeAuthenticatedSession(session){if(!session)return;const {data,error}=await db.auth.mfa.getAuthenticatorAssuranceLevel();if(error){loginMsg.textContent='Error verificando seguridad: '+error.message;return}if(data.currentLevel==='aal1'&&data.nextLevel==='aal2'){login.classList.add('hidden');app.classList.add('hidden');mfaChallenge.classList.remove('hidden');mfaLoginCode.value='';mfaLoginMsg.textContent='';setTimeout(()=>mfaLoginCode.focus(),100);return}mfaChallenge.classList.add('hidden');await start(session)}
+async function verifyMfaLogin(){const code=mfaLoginCode.value.replace(/\D/g,'');if(code.length!==6){mfaLoginMsg.textContent='Escribe los 6 dígitos de Microsoft Authenticator.';return}mfaLoginMsg.textContent='Verificando...';const {data:factors,error:listError}=await db.auth.mfa.listFactors();if(listError){mfaLoginMsg.textContent='Error: '+listError.message;return}const factor=(factors.totp||[]).find(f=>f.status==='verified')||(factors.totp||[])[0];if(!factor){mfaLoginMsg.textContent='No encuentro un Authenticator configurado para esta cuenta.';return}const {error}=await db.auth.mfa.challengeAndVerify({factorId:factor.id,code});if(error){mfaLoginMsg.textContent='Código incorrecto o vencido. Intenta con el código actual.';return}const {data}=await db.auth.getSession();mfaChallenge.classList.add('hidden');await start(data.session)}
+let pendingMfaFactorId=null;
+async function loadMfaStatus(){mfaStatus.textContent='Comprobando estado...';const {data,error}=await db.auth.mfa.listFactors();if(error){mfaStatus.textContent='No se pudo comprobar: '+error.message;return}const verified=(data.totp||[]).filter(f=>f.status==='verified');if(verified.length){mfaStatus.textContent='✓ Verificación en 2 pasos activada en esta cuenta';mfaEnrollBtn.classList.add('hidden')}else{mfaStatus.textContent='Aún no está activada';mfaEnrollBtn.classList.remove('hidden')}}
+async function beginMfaEnrollment(){mfaEnrollBtn.disabled=true;mfaStatus.textContent='Generando configuración segura...';const {data,error}=await db.auth.mfa.enroll({factorType:'totp',friendlyName:'Microsoft Authenticator'});mfaEnrollBtn.disabled=false;if(error){mfaStatus.textContent='Error: '+error.message;return}pendingMfaFactorId=data.id;mfaQr.src=data.totp.qr_code;mfaSecret.textContent=data.totp.secret;mfaEnrollCode.value='';mfaEnrollMsg.textContent='';mfaEnrollPanel.classList.remove('hidden');mfaStatus.textContent='Escanea el QR y confirma el código.';setTimeout(()=>mfaEnrollCode.focus(),100)}
+async function confirmMfaEnrollment(){const code=mfaEnrollCode.value.replace(/\D/g,'');if(!pendingMfaFactorId){mfaEnrollMsg.textContent='Inicia nuevamente la configuración.';return}if(code.length!==6){mfaEnrollMsg.textContent='Escribe los 6 dígitos.';return}mfaEnrollMsg.textContent='Verificando...';const {error}=await db.auth.mfa.challengeAndVerify({factorId:pendingMfaFactorId,code});if(error){mfaEnrollMsg.textContent='Código incorrecto o vencido. Usa el código actual de Authenticator.';return}pendingMfaFactorId=null;mfaEnrollPanel.classList.add('hidden');mfaStatus.textContent='✓ Verificación en 2 pasos activada correctamente';mfaEnrollBtn.classList.add('hidden')}
+async function cancelMfaEnrollment(){if(pendingMfaFactorId){await db.auth.mfa.unenroll({factorId:pendingMfaFactorId}).catch(()=>{});pendingMfaFactorId=null}mfaEnrollPanel.classList.add('hidden');await loadMfaStatus()}
+async function start(s){userId=s.user.id;let {data,error}=await db.from('household_members').select('household_id,households(name)').eq('user_id',userId).limit(1);if(error||!data?.length){loginMsg.textContent='Tu usuario no está asociado a un hogar.';return}householdId=data[0].household_id;homeName.textContent=data[0].households?.name||'Nuestra Casa';login.classList.add('hidden');app.classList.remove('hidden');let d=new Date();month.value=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;txDate.value=d.toISOString().slice(0,10);txReceipt.onchange=()=>receiptState.textContent=txReceipt.files[0]?'Foto lista':'Sin foto';await loadCats();await refreshAll()}
+async function loadCats(){let {data}=await db.from('categories').select('*').eq('household_id',householdId).eq('active',true).order('sort_order');cats=data||[];fillTxCats();fxCat.innerHTML=cats.filter(c=>c.kind==='expense').map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}
+function fillTxCats(){let k=txType.value;txCat.innerHTML=cats.filter(c=>c.kind===k).map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}
+async function refreshAll(){await Promise.all([loadTx(),loadPrevTx(),loadFixed(),loadBudgets(),loadRecurringIncomes(),loadSavings()]);await ensureFixedSnapshots();await loadFixedSnapshots();renderDash();renderBudget();renderFixed();renderRecurringIncomes();renderSavings();renderHistory()}
+async function loadTx(){let [s,e]=bounds();let {data}=await db.from('transactions').select('*,categories(name)').eq('household_id',householdId).gte('transaction_date',s).lt('transaction_date',e).order('transaction_date',{ascending:false});txs=data||[]}
+async function loadPrevTx(){
+  const [start,end]=previousMonthBounds();
+  const {data,error}=await db.from('transactions')
+    .select('*,categories(name)')
+    .eq('household_id',householdId)
+    .gte('transaction_date',start).lt('transaction_date',end);
+  prevTxs=error?[]:(data||[]);
+}
+async function loadFixed(){let {data}=await db.from('fixed_expenses').select('*,categories(name)').eq('household_id',householdId).eq('active',true).order('due_day');fixed=data||[];let r=await db.from('fixed_expense_payments').select('*').eq('household_id',householdId).eq('payment_month',monthStart());payments=r.data||[]}
+async function loadBudgets(){let {data}=await db.from('monthly_budgets').select('*').eq('household_id',householdId).eq('budget_month',monthStart());budgets={};(data||[]).forEach(x=>budgets[x.category_id]=+x.amount)}
+async function ensureFixedSnapshots(){
+  if(!fixed.length)return;
+  let rows=fixed.map(f=>({household_id:householdId,fixed_expense_id:f.id,snapshot_month:monthStart(),name:f.name,amount:+f.amount,due_day:f.due_day,category_id:f.category_id}));
+  let current=new Date(), selected=monthStart(),currentMonth=`${current.getFullYear()}-${String(current.getMonth()+1).padStart(2,'0')}-01`;if(selected!==currentMonth)return;let {error}=await db.from('fixed_expense_monthly_snapshots').upsert(rows,{onConflict:'fixed_expense_id,snapshot_month',ignoreDuplicates:true});
+  if(error)console.warn('Snapshot error:',error.message);
+}
+async function loadFixedSnapshots(){
+  let {data,error}=await db.from('fixed_expense_monthly_snapshots').select('*').eq('household_id',householdId).in('snapshot_month',[monthStart(),previousMonthStart()]);
+  fixedSnapshots=error?[]:(data||[]);
+}
+
+
+async function loadRecurringIncomes(){
+  let {data,error}=await db.from('recurring_incomes').select('*').eq('household_id',householdId).eq('active',true).order('expected_day');
+  recurringIncomes=error?[]:(data||[]);
+  let {data:r,error:e}=await db.from('recurring_income_receipts').select('*').eq('household_id',householdId).eq('receipt_month',monthStart());
+  incomeReceipts=e?[]:(r||[]);
+}
+async function loadSavings(){
+  let {data,error}=await db.from('savings_goals').select('*').eq('household_id',householdId).eq('active',true).order('created_at');
+  savingsGoals=error?[]:(data||[]);
+  let ids=savingsGoals.map(x=>x.id);
+  if(!ids.length){savingsContribs=[];return}
+  let {data:c,error:e}=await db.from('savings_contributions').select('*').eq('household_id',householdId).in('goal_id',ids);
+  savingsContribs=e?[]:(c||[]);
+}
+
+function renderDashCore(){
+  const income=txs.filter(x=>x.transaction_type==='income').reduce((a,b)=>a+ +b.amount,0);
+
+  const paidFixedTx=txs.filter(x=>x.transaction_type==='expense' && x.source==='fixed_expense');
+  const variableTx=txs.filter(x=>x.transaction_type==='expense' && x.source!=='fixed_expense');
+
+  const fixedPaid=paidFixedTx.reduce((a,b)=>a+ +b.amount,0);
+  const variableTotal=variableTx.reduce((a,b)=>a+ +b.amount,0);
+
+  const paidIds=new Set(payments.filter(x=>x.status==='paid').map(x=>x.fixed_expense_id));
+  const pending=fixed.filter(x=>!paidIds.has(x.id)).reduce((a,b)=>a+ +b.amount,0);
+
+  const currentSnaps=fixedSnapshots.filter(x=>x.snapshot_month===monthStart());
+  const prevSnaps=fixedSnapshots.filter(x=>x.snapshot_month===previousMonthStart());
+  const fixedTotal=currentSnaps.length?currentSnaps.reduce((a,b)=>a+ +b.amount,0):fixed.reduce((a,b)=>a+ +b.amount,0);
+  const prevFixed=prevSnaps.reduce((a,b)=>a+ +b.amount,0);
+
+  const prevVariable=prevTxs.filter(x=>x.transaction_type==='expense' && x.source!=='fixed_expense').reduce((a,b)=>a+ +b.amount,0);
+
+  const fixedDiff=fixedTotal-prevFixed;
+  const fixedPct=prevFixed?fixedDiff/prevFixed*100:null;
+  const varDiff=variableTotal-prevVariable;
+  const varPct=prevVariable?varDiff/prevVariable*100:null;
+
+  const totalExpense=fixedTotal+variableTotal;
+  const available=income-totalExpense;
+  const expectedIncome=recurringIncomes.reduce((a,b)=>a+ +b.amount,0);
+  const receivedIncomeIds=new Set(incomeReceipts.filter(x=>x.status==='received').map(x=>x.recurring_income_id));
+  const pendingIncome=recurringIncomes.filter(x=>!receivedIncomeIds.has(x.id)).reduce((a,b)=>a+ +b.amount,0);
+  const monthSaving=income-(fixedPaid+variableTotal);
+  const accumSavings=savingsGoals.reduce((sum,g)=>{
+    const contrib=savingsContribs.filter(x=>x.goal_id===g.id).reduce((a,b)=>a+ +b.amount,0);
+    return sum + +g.initial_balance + contrib;
+  },0);
+
+  const variableBudget=Object.entries(budgets).reduce((sum,[catId,val])=>{
+    const c=cats.find(x=>x.id===catId);
+    return sum + (c && c.kind==='expense' ? +val : 0);
+  },0);
+  const varBudgetDiff=variableBudget-variableTotal;
+  const varBudgetPct=variableBudget?variableTotal/variableBudget*100:0;
+
+  kIncome.textContent=money(income);
+  kFixedTotal.textContent=money(fixedTotal);
+  kVariableTotal.textContent=money(variableTotal);
+  kTotalExpense.textContent=money(totalExpense);
+  kAvail.textContent=money(available);
+  kExpectedIncome.textContent=money(expectedIncome);
+  kIncomePending.textContent=money(pendingIncome)+' pendiente';
+  kMonthSaving.textContent=money(monthSaving);
+  kAccumSavings.textContent=money(accumSavings);
+  kFixedPaid.textContent=money(fixedPaid);
+  kPending.textContent=money(pending);
+  kVariableVsBudget.textContent=(varBudgetDiff>=0?money(varBudgetDiff)+' disponible':money(Math.abs(varBudgetDiff))+' sobre');
+  kVariableBudgetPct.textContent=variableBudget?`${varBudgetPct.toFixed(1)}% del presupuesto usado`:'Sin presupuesto variable';
+
+  if(prevFixed){
+    kFixedTrend.textContent=`vs mes anterior ${fixedDiff>=0?'+':''}${money(fixedDiff)} (${fixedDiff>=0?'+':''}${fixedPct.toFixed(1)}%)`;
+    kFixedTrend.style.color=fixedDiff>0?'#c24141':fixedDiff<0?'#217b56':'#6b7280';
+  }else{
+    kFixedTrend.textContent='Sin histórico del mes anterior';
+    kFixedTrend.style.color='#6b7280';
+  }
+
+  if(prevVariable){
+    kVariableTrend.textContent=`vs mes anterior ${varDiff>=0?'+':''}${money(varDiff)} (${varDiff>=0?'+':''}${varPct.toFixed(1)}%)`;
+    kVariableTrend.style.color=varDiff>0?'#c24141':varDiff<0?'#217b56':'#6b7280';
+  }else{
+    kVariableTrend.textContent='Sin histórico del mes anterior';
+    kVariableTrend.style.color='#6b7280';
+  }
+
+  let s={};
+  variableTx.forEach(x=>{
+    const n=x.categories?.name||'Otros';
+    s[n]=(s[n]||0)+ +x.amount;
+  });
+  summaryCats.innerHTML=Object.entries(s).sort((a,b)=>b[1]-a[1]).map(([n,v])=>`<div class="row"><span>${n}</span><b>${money(v)}</b></div>`).join('')||'<div class="muted">Sin gastos variables este mes.</div>';
+}
+function renderBudget(){budgetList.innerHTML=cats.filter(c=>c.kind==='expense').map(c=>{let sp=txs.filter(t=>t.transaction_type==='expense'&&t.category_id===c.id).reduce((a,b)=>a+ +b.amount,0),b=budgets[c.id]||0,p=b?sp/b*100:0;return `<div class="row"><div style="flex:1"><div class="flex"><b>${c.name}</b><input class="input bi" data-id="${c.id}" type="number" step="0.01" value="${b}" style="max-width:150px"></div><div class="progress"><div class="bar ${p>100?'over':''}" style="width:${Math.min(100,p)}%"></div></div><div class="muted">${money(sp)} gastado</div></div></div>`}).join('')}
+async function saveBudgets(){let rows=[...document.querySelectorAll('.bi')].map(i=>({household_id:householdId,category_id:i.dataset.id,budget_month:monthStart(),amount:+i.value||0}));let {error}=await db.from('monthly_budgets').upsert(rows,{onConflict:'household_id,category_id,budget_month'});budgetMsg.textContent=error?'Error: '+error.message:'Guardado';if(!error)refreshAll()}
+function renderFixed(){
+  fixedSectionTotal.textContent=money(fixed.reduce((a,b)=>a+ +b.amount,0));
+  fixedList.innerHTML=fixed.map(f=>{let p=payments.find(x=>x.fixed_expense_id===f.id),pd=p?.status==='paid';return `<div class="item-card"><div class="item-top"><div><div class="item-title">${f.name}</div><div class="item-sub">${f.categories?.name||''} · Día ${f.due_day}</div></div><div><div class="item-money">${money(f.amount)}</div><div style="text-align:right;margin-top:4px"><span class="badge ${pd?'paid':'pending'}">${pd?'Pagado':'Pendiente'}</span></div></div></div><div class="item-actions">${pd?`<button class="action-neutral" onclick="unpay('${f.id}')">Deshacer</button>`:`<button class="action-primary" onclick="payFixed('${f.id}')">✓ Marcar pagado</button><label class="file receipt-compact">Recibo<input id="r-${f.id}" type="file" accept="image/*" capture="environment"></label>`}<button class="action-edit compact-edit" onclick="editFixed('${f.id}')">Editar</button><details class="more-menu"><summary aria-label="Más opciones">⋯</summary><div class="more-pop"><button onclick="disableFixed('${f.id}')">Eliminar</button></div></details></div></div>`}).join('')||'<div class="muted">No hay gastos fijos.</div>'}
+async function payFixed(id){let f=fixed.find(x=>x.id===id),p=payments.find(x=>x.fixed_expense_id===id),res;if(!p)res=await db.from('fixed_expense_payments').insert({household_id:householdId,fixed_expense_id:id,payment_month:monthStart(),status:'paid',paid_at:new Date().toISOString()}).select().single();else res=await db.from('fixed_expense_payments').update({status:'paid',paid_at:new Date().toISOString()}).eq('id',p.id).select().single();if(res.error)return toastMsg(res.error.message,true);p=res.data;let file=document.getElementById('r-'+id)?.files?.[0],path=null;if(file){try{path=await upload(file,'fixed-'+p.id);await db.from('fixed_expense_payments').update({receipt_path:path}).eq('id',p.id)}catch(e){toastMsg(e.message,true)}}let date=month.value+'-'+String(Math.min(new Date().getDate(),28)).padStart(2,'0');await db.from('transactions').insert({household_id:householdId,category_id:f.category_id,transaction_type:'expense',amount:f.amount,transaction_date:date,note:f.name,receipt_path:path,source:'fixed_expense',fixed_expense_payment_id:p.id,created_by:userId});refreshAll()}
+async function unpay(id){let p=payments.find(x=>x.fixed_expense_id===id);if(!p)return;await db.from('transactions').delete().eq('fixed_expense_payment_id',p.id);await db.from('fixed_expense_payments').update({status:'pending',paid_at:null}).eq('id',p.id);refreshAll()}
+async function saveTx(){
+  const amount=Number(txAmount.value), transaction_date=txDate.value, category_id=txCat.value, transaction_type=txType.value, note=txNote.value.trim();
+  if(!Number.isFinite(amount)||amount<=0||!transaction_date||!category_id){txMsg.textContent='Completa monto, fecha y categoría.';return;}
+  const payload={category_id,transaction_type,amount,transaction_date,note};
+  let result;
+  if(editingTransactionId){result=await db.from('transactions').update(payload).eq('id',editingTransactionId).eq('household_id',householdId).eq('source','manual').select().single();}
+  else{result=await db.from('transactions').insert({...payload,household_id:householdId,source:'manual',created_by:userId}).select().single();}
+  if(result.error){txMsg.textContent='Error: '+result.error.message;return;}
+  const file=txReceipt.files?.[0];let warning='';
+  if(file){try{const path=await upload(file,'tx-'+result.data.id);let r=await db.from('transactions').update({receipt_path:path}).eq('id',result.data.id).eq('household_id',householdId);if(r.error)throw r.error;}catch(e){warning=' No se pudo guardar el nuevo recibo: '+e.message;}}
+  cancelTxEdit();txMsg.textContent='Movimiento guardado.'+warning;await refreshAll();
+}
+function cancelTxEdit(){
+  editingTransactionId=null;movementHeading.textContent='Registrar movimiento';txSaveButton.textContent='Guardar';txCancelEdit.classList.add('hidden');
+  txType.disabled=false;txAmount.value='';txNote.value='';txReceipt.value='';receiptState.textContent='Sin foto';txDate.value=new Date().toLocaleDateString('en-CA');
+}
+function editTransaction(id){
+  const t=txs.find(x=>x.id===id);if(!t||t.source!=='manual')return;
+  editingTransactionId=id;txType.value=t.transaction_type;fillTxCats();txCat.value=t.category_id;txAmount.value=t.amount;
+  txDate.value=t.transaction_date;txNote.value=t.note||'';txReceipt.value='';receiptState.textContent=t.receipt_path?'Recibo actual conservado. Puedes tomar otra foto.':'Sin foto';
+  movementHeading.textContent='Editar movimiento';txSaveButton.textContent='Guardar cambios';txCancelEdit.classList.remove('hidden');txMsg.textContent='';
+  const nav=[...document.querySelectorAll('.nav button')].find(b=>b.getAttribute('onclick')?.includes("'mov'"));go('mov',nav);window.scrollTo(0,0);
+}
+async function deleteTransaction(id){
+  const t=txs.find(x=>x.id===id);if(!t||t.source!=='manual')return;
+  if(!await askConfirm('Eliminar movimiento','Esta acción no se puede deshacer.','Eliminar',true))return;
+  const {error}=await db.from('transactions').delete().eq('id',id).eq('household_id',householdId).eq('source','manual');
+  if(error){toastMsg('Error: '+error.message,true);return;}if(editingTransactionId===id)cancelTxEdit();await refreshAll();
+}
+function editFixed(id){
+  const f=fixed.find(x=>x.id===id);if(!f)return;editingFixedId=id;
+  const opts=cats.filter(c=>c.kind==='expense').map(c=>`<option value="${c.id}" ${c.id===f.category_id?'selected':''}>${c.name}</option>`).join('');
+  fixedEditPanel.innerHTML=`<h3>Editar gasto fijo</h3><div class="field"><label>Nombre</label><input id="editFxName" class="input" value=""></div><div class="field"><label>Categoría</label><select id="editFxCat" class="select">${opts}</select></div><div class="field"><label>Monto mensual</label><input id="editFxAmount" class="input" type="number" step="0.01" min="0.01" value="${f.amount}"></div><div class="field"><label>Día de pago</label><input id="editFxDay" class="input" type="number" min="1" max="31" value="${f.due_day}"></div><div class="notice-edit">Los cambios actualizan el gasto fijo de aquí en adelante; los pagos realizados conservan su importe original.</div><div class="flex"><button class="btn primary" onclick="saveFixedEdit()">Guardar cambios</button><button class="btn soft" onclick="cancelFixedEdit()">Cancelar</button></div><div id="fxEditMsg" class="muted"></div>`;
+  document.getElementById('editFxName').value=f.name;fixedEditPanel.classList.remove('hidden');fixedEditPanel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function cancelFixedEdit(){editingFixedId=null;fixedEditPanel.classList.add('hidden');fixedEditPanel.innerHTML='';}
+async function saveFixedEdit(){
+  if(!editingFixedId)return;const name=editFxName.value.trim(),amount=Number(editFxAmount.value),due_day=Number(editFxDay.value),category_id=editFxCat.value;
+  if(!name||!Number.isFinite(amount)||amount<=0||!Number.isInteger(due_day)||due_day<1||due_day>31){fxEditMsg.textContent='Revisa nombre, monto y día de pago.';return;}
+  const {error}=await db.from('fixed_expenses').update({name,amount,due_day,category_id}).eq('id',editingFixedId).eq('household_id',householdId);
+  if(error){fxEditMsg.textContent='Error: '+error.message;return;}
+  const paid=payments.some(p=>p.fixed_expense_id===editingFixedId&&p.status==='paid');
+  if(!paid){let {error:se}=await db.from('fixed_expense_monthly_snapshots').update({name,amount,due_day,category_id}).eq('fixed_expense_id',editingFixedId).eq('household_id',householdId).eq('snapshot_month',monthStart());if(se)console.warn(se.message);}
+  cancelFixedEdit();await refreshAll();
+}
+async function disableFixed(id){
+  const f=fixed.find(x=>x.id===id);if(!f||!await askConfirm('Eliminar gasto fijo','Se quitará de los próximos meses. Los pagos ya registrados se conservarán.','Eliminar',true))return;
+  const {error}=await db.from('fixed_expenses').update({active:false}).eq('id',id).eq('household_id',householdId);
+  if(error){toastMsg('Error: '+error.message,true);return;}if(editingFixedId===id)cancelFixedEdit();await refreshAll();
+}
+
+function renderRecurringIncomes(){
+  const receivedIds=new Set(incomeReceipts.filter(x=>x.status==='received').map(x=>x.recurring_income_id));
+  const total=recurringIncomes.reduce((a,b)=>a+ +b.amount,0);const pending=recurringIncomes.filter(x=>!receivedIds.has(x.id)).reduce((a,b)=>a+ +b.amount,0);
+  incomeSectionTotal.textContent=money(total);incomeSectionPending.textContent=pending?money(pending)+' pendiente':'Todo recibido';
+  incomeList.innerHTML=recurringIncomes.map(x=>{const r=incomeReceipts.find(z=>z.recurring_income_id===x.id),received=r?.status==='received';return `<div class="item-card"><div class="item-top"><div><div class="item-title">${x.name}</div><div class="item-sub">Ingreso recurrente · Día ${x.expected_day}</div></div><div><div class="item-money">${money(x.amount)}</div><div style="text-align:right;margin-top:4px"><span class="badge ${received?'paid':'pending'}">${received?'Recibido':'Pendiente'}</span></div></div></div><div class="item-actions">${received?`<button class="action-neutral" onclick="undoIncome('${x.id}')">Deshacer</button>`:`<button class="action-primary" onclick="receiveIncome('${x.id}')">✓ Marcar recibido</button>`}<button class="action-edit compact-edit" onclick="editRecurringIncome('${x.id}')">Editar</button><details class="more-menu"><summary aria-label="Más opciones">⋯</summary><div class="more-pop"><button onclick="disableRecurringIncome('${x.id}')">Eliminar</button></div></details></div></div>`}).join('')||'<div class="muted">No hay ingresos recurrentes.</div>'}
+async function addRecurringIncome(){
+  const name=incName.value.trim(),amount=+incAmount.value,expected_day=+incDay.value||1;
+  if(!name||!amount){incMsg.textContent='Completa nombre y monto.';return}
+  let {error}=await db.from('recurring_incomes').insert({household_id:householdId,name,amount,expected_day});
+  incMsg.textContent=error?'Error: '+error.message:'Ingreso agregado.';
+  if(!error){incName.value='';incAmount.value='';await refreshAll()}
+}
+function editRecurringIncome(id){
+  const x=recurringIncomes.find(i=>i.id===id);if(!x)return;editingIncomeId=id;
+  incomeEditPanel.innerHTML=`<h3>Editar ingreso fijo</h3><div class="field"><label>Nombre</label><input id="editIncName" class="input"></div><div class="field"><label>Monto</label><input id="editIncAmount" class="input" type="number" step="0.01" min="0.01" value="${x.amount}"></div><div class="field"><label>Día esperado</label><input id="editIncDay" class="input" type="number" min="1" max="31" value="${x.expected_day}"></div><div class="notice-edit">Si este ingreso ya fue marcado como recibido este mes, puedes actualizar también el movimiento recibido.</div><div class="flex"><button class="btn primary" onclick="saveRecurringIncomeEdit()">Guardar cambios</button><button class="btn soft" onclick="cancelRecurringIncomeEdit()">Cancelar</button></div><div id="incEditMsg" class="muted"></div>`;
+  document.getElementById('editIncName').value=x.name;incomeEditPanel.classList.remove('hidden');incomeEditPanel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function cancelRecurringIncomeEdit(){editingIncomeId=null;incomeEditPanel.classList.add('hidden');incomeEditPanel.innerHTML='';}
+async function saveRecurringIncomeEdit(){
+  if(!editingIncomeId)return;const name=editIncName.value.trim(),amount=Number(editIncAmount.value),expected_day=Number(editIncDay.value);
+  if(!name||!Number.isFinite(amount)||amount<=0||!Number.isInteger(expected_day)||expected_day<1||expected_day>31){incEditMsg.textContent='Revisa nombre, monto y día esperado.';return;}
+  const {error}=await db.from('recurring_incomes').update({name,amount,expected_day}).eq('id',editingIncomeId).eq('household_id',householdId);if(error){incEditMsg.textContent='Error: '+error.message;return;}
+  const r=incomeReceipts.find(z=>z.recurring_income_id===editingIncomeId&&z.status==='received');
+  if(r && await askConfirm('Actualizar movimiento recibido','Este ingreso ya fue recibido este mes. ¿Quieres actualizar también el movimiento recibido con el nuevo nombre y monto?','Actualizar')){await db.from('transactions').update({amount,note:name}).eq('recurring_income_receipt_id',r.id).eq('household_id',householdId);}
+  cancelRecurringIncomeEdit();await refreshAll();
+}
+async function disableRecurringIncome(id){
+  const x=recurringIncomes.find(i=>i.id===id);if(!x||!await askConfirm('Eliminar ingreso recurrente','Se quitará de los próximos meses. Los ingresos ya recibidos se conservarán.','Eliminar',true))return;
+  const {error}=await db.from('recurring_incomes').update({active:false}).eq('id',id).eq('household_id',householdId);if(error){toastMsg('Error: '+error.message,true);return;}if(editingIncomeId===id)cancelRecurringIncomeEdit();await refreshAll();
+}
+
+async function receiveIncome(id){
+  const item=recurringIncomes.find(x=>x.id===id); if(!item)return;
+  let existing=incomeReceipts.find(x=>x.recurring_income_id===id);
+  let receipt=existing;
+  if(!existing){
+    let {data,error}=await db.from('recurring_income_receipts').insert({household_id:householdId,recurring_income_id:id,receipt_month:monthStart(),status:'received',received_at:new Date().toISOString()}).select().single();
+    if(error){toastMsg(error.message,true);return} receipt=data;
+  }else{
+    let {data,error}=await db.from('recurring_income_receipts').update({status:'received',received_at:new Date().toISOString()}).eq('id',existing.id).select().single();
+    if(error){toastMsg(error.message,true);return} receipt=data;
+  }
+  const incomeCat=cats.find(c=>c.kind==='income');
+  if(!incomeCat){toastMsg('No hay categoría de ingresos.',true);return}
+  const d=new Date(); const txDate=`${document.getElementById('month').value}-${String(Math.min(d.getDate(),28)).padStart(2,'0')}`;
+  let {error}=await db.from('transactions').insert({household_id:householdId,category_id:incomeCat.id,transaction_type:'income',amount:item.amount,transaction_date:txDate,note:item.name,source:'recurring_income',recurring_income_receipt_id:receipt.id,created_by:userId});
+  if(error)toastMsg(error.message,true);
+  await refreshAll();
+}
+async function undoIncome(id){
+  const r=incomeReceipts.find(x=>x.recurring_income_id===id); if(!r)return;
+  await db.from('transactions').delete().eq('recurring_income_receipt_id',r.id);
+  await db.from('recurring_income_receipts').update({status:'pending',received_at:null}).eq('id',r.id);
+  await refreshAll();
+}
+
+function renderSavings(){
+  const total=savingsGoals.reduce((sum,g)=>sum + +g.initial_balance + savingsContribs.filter(x=>x.goal_id===g.id).reduce((a,b)=>a+ +b.amount,0),0);savingsSectionTotal.textContent=money(total);
+  savingsList.innerHTML=savingsGoals.map(g=>{const contrib=savingsContribs.filter(x=>x.goal_id===g.id).reduce((a,b)=>a+ +b.amount,0),current=+g.initial_balance+contrib,target=+g.target_amount,pct=Math.min(100,target?current/target*100:0);const items=savingsContribs.filter(x=>x.goal_id===g.id).sort((a,b)=>String(b.contribution_date).localeCompare(String(a.contribution_date)));const detail=items.map(c=>`<div class="row" style="padding:10px 0"><div><b>${c.note||'Aporte'}</b><div class="muted">${c.contribution_date}</div></div><div style="text-align:right"><b>${money(c.amount)}</b><div class="item-actions" style="margin-top:6px"><button class="action-edit" onclick="editContribution('${c.id}')">✎ Editar</button><button class="action-danger" onclick="deleteContribution('${c.id}')">♲ Eliminar</button></div></div></div>`).join('');return `<div class="item-card"><div class="item-top"><div style="flex:1"><div class="item-title">${g.name}</div><div class="item-sub">${pct.toFixed(0)}% de la meta</div><div class="progress" style="margin-top:12px"><div class="bar" style="width:${pct}%"></div></div></div><div class="item-money">${money(current)}<div class="muted">de ${money(target)}</div></div></div><div class="item-actions"><button class="action-primary" onclick="addContribution('${g.id}')">＋ Agregar aporte</button><button class="action-edit" onclick="editSavingsGoal('${g.id}')">✎ Editar meta</button><button class="action-danger" onclick="disableSavingsGoal('${g.id}')">♲ Eliminar</button></div>${detail?`<div style="margin-top:16px;border-top:1px solid var(--line);padding-top:8px"><div class="muted" style="font-weight:800;margin-bottom:3px">APORTES</div>${detail}</div>`:''}</div>`}).join('')||'<div class="muted">No hay metas de ahorro todavía.</div>';
+}
+function editSavingsGoal(id){
+  const g=savingsGoals.find(x=>x.id===id);if(!g)return;editingGoalId=id;
+  savingsEditPanel.innerHTML=`<h3>Editar meta de ahorro</h3><div class="field"><label>Nombre</label><input id="editGoalName" class="input"></div><div class="field"><label>Monto objetivo</label><input id="editGoalTarget" class="input" type="number" step="0.01" min="0.01" value="${g.target_amount}"></div><div class="field"><label>Saldo inicial</label><input id="editGoalInitial" class="input" type="number" step="0.01" min="0" value="${g.initial_balance}"></div><div class="flex"><button class="btn primary" onclick="saveSavingsGoalEdit()">Guardar cambios</button><button class="btn soft" onclick="cancelSavingsGoalEdit()">Cancelar</button></div><div id="goalEditMsg" class="muted"></div>`;
+  editGoalName.value=g.name;savingsEditPanel.classList.remove('hidden');savingsEditPanel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function cancelSavingsGoalEdit(){editingGoalId=null;savingsEditPanel.classList.add('hidden');savingsEditPanel.innerHTML='';}
+async function saveSavingsGoalEdit(){
+  if(!editingGoalId)return;const name=editGoalName.value.trim(),target_amount=Number(editGoalTarget.value),initial_balance=Number(editGoalInitial.value);
+  if(!name||!Number.isFinite(target_amount)||target_amount<=0||!Number.isFinite(initial_balance)||initial_balance<0){goalEditMsg.textContent='Revisa nombre, meta y saldo inicial.';return;}
+  const {error}=await db.from('savings_goals').update({name,target_amount,initial_balance}).eq('id',editingGoalId).eq('household_id',householdId);if(error){goalEditMsg.textContent='Error: '+error.message;return;}cancelSavingsGoalEdit();await refreshAll();
+}
+async function disableSavingsGoal(id){
+  const g=savingsGoals.find(x=>x.id===id);if(!g||!await askConfirm('Eliminar meta','La meta dejará de mostrarse. Sus aportes quedarán guardados en la base de datos.','Eliminar',true))return;
+  const {error}=await db.from('savings_goals').update({active:false}).eq('id',id).eq('household_id',householdId);if(error){toastMsg('Error: '+error.message,true);return;}if(editingGoalId===id)cancelSavingsGoalEdit();await refreshAll();
+}
+async function editContribution(id){
+  const c=savingsContribs.find(x=>x.id===id);if(!c)return;
+  const v=await showFormModal({title:'Editar aporte',subtitle:'Actualiza los datos del aporte.',fields:[{label:'Monto',type:'number',step:'0.01',min:'0.01',value:c.amount},{label:'Nota',value:c.note||''},{label:'Fecha',type:'date',value:c.contribution_date}],ok:'Guardar cambios'});if(!v)return;
+  const amount=Number(v[0]);if(!Number.isFinite(amount)||amount<=0){toastMsg('Monto inválido.',true);return}const {error}=await db.from('savings_contributions').update({amount,note:v[1],contribution_date:v[2]}).eq('id',id).eq('household_id',householdId);if(error)toastMsg('Error: '+error.message,true);else await refreshAll();
+}
+async function deleteContribution(id){
+  if(!await askConfirm('Eliminar aporte','¿Quieres eliminar este aporte de ahorro?','Eliminar',true))return;const {error}=await db.from('savings_contributions').delete().eq('id',id).eq('household_id',householdId);if(error)toastMsg('Error: '+error.message,true);else await refreshAll();
+}
+
+async function addSavingsGoal(){
+  const v=await showFormModal({title:'Nueva meta de ahorro',subtitle:'Define un objetivo para tu hogar.',fields:[{label:'Nombre de la meta',value:'Fondo de emergencia'},{label:'Monto objetivo',type:'number',step:'0.01',min:'0.01',value:'10000'},{label:'¿Cuánto ya tienes ahorrado?',type:'number',step:'0.01',min:'0',value:'0'}],ok:'Crear meta',note:'Podrás editar la meta y registrar aportes en cualquier momento.'});if(!v)return;
+  const name=v[0].trim(),target=Number(v[1]),initial=Number(v[2]||0);if(!name||!target||target<=0){toastMsg('Completa un nombre y un monto objetivo válido.',true);return}let {error}=await db.from('savings_goals').insert({household_id:householdId,name,target_amount:target,initial_balance:initial});if(error)toastMsg(error.message,true);else await refreshAll();
+}
+async function addContribution(goalId){
+  const v=await showFormModal({title:'Nuevo aporte',subtitle:'Registra dinero destinado a esta meta.',fields:[{label:'Monto',type:'number',step:'0.01',min:'0.01',value:'100'},{label:'Nota opcional',value:''},{label:'Fecha',type:'date',value:new Date().toISOString().slice(0,10)}],ok:'Agregar aporte'});if(!v)return;
+  const amount=Number(v[0]);if(!amount||amount<=0){toastMsg('Monto inválido.',true);return}let {error}=await db.from('savings_contributions').insert({household_id:householdId,goal_id:goalId,amount,contribution_date:v[2],note:v[1],created_by:userId});if(error)toastMsg(error.message,true);else await refreshAll();
+}
+async function openReceipt(path){let {data,error}=await db.storage.from('receipts').createSignedUrl(path,3600);if(error)return toastMsg(error.message,true);window.open(data.signedUrl,'_blank')}
+db.auth.onAuthStateChange((event,session)=>{if(event==='PASSWORD_RECOVERY'){login.classList.add('hidden');app.classList.add('hidden');resetPassword.classList.remove('hidden')}});
+(async()=>{let {data}=await db.auth.getSession();if(data.session&&!location.hash.includes('type=recovery'))await routeAuthenticatedSession(data.session)})();
+
+function renderWorldDashboard(){
+  const income=txs.filter(x=>x.transaction_type==='income').reduce((a,b)=>a+ +b.amount,0);
+  const fixedPaid=txs.filter(x=>x.transaction_type==='expense'&&x.source==='fixed_expense').reduce((a,b)=>a+ +b.amount,0);
+  const variable=txs.filter(x=>x.transaction_type==='expense'&&x.source!=='fixed_expense').reduce((a,b)=>a+ +b.amount,0);
+  const paidIds=new Set(payments.filter(x=>x.status==='paid').map(x=>x.fixed_expense_id));
+  const pendingFixed=fixed.filter(x=>!paidIds.has(x.id));
+  const pendingFixedAmt=pendingFixed.reduce((a,b)=>a+ +b.amount,0);
+  const expected=recurringIncomes.reduce((a,b)=>a+ +b.amount,0);
+  const receivedIds=new Set(incomeReceipts.filter(x=>x.status==='received').map(x=>x.recurring_income_id));
+  const pendingInc=recurringIncomes.filter(x=>!receivedIds.has(x.id));
+  const budgetTotal=Object.values(budgets).reduce((a,b)=>a+ +b,0);
+  const free=income-fixedPaid-variable;
+  const projected=expected-(fixed.reduce((a,b)=>a+ +b.amount,0)+budgetTotal);
+  heroAvailable.textContent=money(free); heroIncome.textContent=money(income); heroSpent.textContent=money(fixedPaid+variable); heroProjected.textContent=money(projected);
+  const used=budgetTotal?Math.min(100,variable/budgetTotal*100):0; monthProgress.style.width=used+'%'; monthProgressLabel.textContent=budgetTotal?`${used.toFixed(0)}% del presupuesto variable usado`:'Configura tu presupuesto mensual';
+  const alerts=[];
+  if(pendingInc.length) alerts.push(`<div class="attention amber"><span class="att-icon">↘</span><div><b>${pendingInc.length} ingreso${pendingInc.length>1?'s':''} por recibir</b><small>${money(pendingInc.reduce((a,b)=>a+ +b.amount,0))} esperado</small></div><button onclick="openView('ingresos')">Ver</button></div>`);
+  if(pendingFixed.length) alerts.push(`<div class="attention"><span class="att-icon">✓</span><div><b>${pendingFixed.length} pago${pendingFixed.length>1?'s':''} fijo${pendingFixed.length>1?'s':''} pendiente${pendingFixed.length>1?'s':''}</b><small>${money(pendingFixedAmt)} por pagar</small></div><button onclick="openView('fijos')">Ver</button></div>`);
+  const overs=cats.filter(c=>c.kind==='expense').map(c=>{let b=budgets[c.id]||0,s=txs.filter(t=>t.transaction_type==='expense'&&t.source!=='fixed_expense'&&t.category_id===c.id).reduce((a,x)=>a+ +x.amount,0);return {c,b,s,p:b?s/b*100:0}}).filter(x=>x.b&&x.p>=85).sort((a,b)=>b.p-a.p).slice(0,2);
+  overs.forEach(x=>alerts.push(`<div class="attention ${x.p>100?'red':'amber'}"><span class="att-icon">!</span><div><b>${x.c.name}: ${x.p.toFixed(0)}%</b><small>${money(x.s)} de ${money(x.b)}</small></div><button onclick="openView('pres')">Ver</button></div>`));
+  attentionList.innerHTML=alerts.join('')||'<div class="allgood"><span>✓</span><div><b>Todo bajo control</b><small>No hay nada urgente que atender.</small></div></div>';
+  const catsSpend=cats.filter(c=>c.kind==='expense').map(c=>({name:c.name,spent:txs.filter(t=>t.transaction_type==='expense'&&t.source!=='fixed_expense'&&t.category_id===c.id).reduce((a,x)=>a+ +x.amount,0),budget:budgets[c.id]||0})).filter(x=>x.spent>0).sort((a,b)=>b.spent-a.spent).slice(0,5);
+  topCategories.innerHTML=catsSpend.map(x=>{let p=x.budget?Math.min(100,x.spent/x.budget*100):Math.min(100,x.spent/(catsSpend[0]?.spent||1)*100);return `<div class="catline"><div class="cathead"><b>${x.name}</b><span>${money(x.spent)}${x.budget?' / '+money(x.budget):''}</span></div><div class="track"><i style="width:${p}%" class="${x.budget&&x.spent>x.budget?'danger':''}"></i></div></div>`}).join('')||'<div class="empty">Todavía no hay gastos variables este mes.</div>';
+  const upcoming=[...pendingFixed.map(x=>({day:x.due_day,name:x.name,amount:x.amount,type:'Gasto'})),...pendingInc.map(x=>({day:x.expected_day,name:x.name,amount:x.amount,type:'Ingreso'}))].sort((a,b)=>a.day-b.day).slice(0,5);
+  upcomingList.innerHTML=upcoming.map(x=>`<div class="uprow"><div class="datepill"><b>${x.day}</b><small>${month.value.split('-')[1]||''}</small></div><div><b>${x.name}</b><small>${x.type}</small></div><strong class="${x.type==='Ingreso'?'green':''}">${x.type==='Ingreso'?'+':'−'}${money(x.amount)}</strong></div>`).join('')||'<div class="empty">Sin próximos movimientos pendientes.</div>';
+}
+function renderDash(){renderDashCore();renderWorldDashboard()}
+function openView(id){const buttons=[...document.querySelectorAll('.nav button')];let btn=buttons.find(b=>b.dataset.view===id);if(!btn){btn=buttons.find(b=>b.dataset.view==='plan')||buttons[0]}go(id,btn);if(id==='seguridad')loadMfaStatus();window.scrollTo({top:0,behavior:'smooth'})}
+function openPlan(){openView('plan')}
+</script></body></html>
